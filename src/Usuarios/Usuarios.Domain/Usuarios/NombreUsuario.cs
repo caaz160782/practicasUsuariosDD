@@ -2,25 +2,21 @@ using Usuarios.Domain.Abstractions;
 
 namespace Usuarios.Domain.Usuarios;
 
-public class NombreUsuario
+public record NombreUsuario
 {
-    public string Value { get; private set; }
+    public string Value { get; init; }
 
     private NombreUsuario(string value)
     {
         Value = value;
     }
-
     public static Result<NombreUsuario> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
         {
-            return Result.Failure<NombreUsuario>(UsuarioErrores.NameUserInvalid);
+            return Result.Failure<NombreUsuario>(UsuarioErrores.NombreUsuarioInvalido);
         }
 
         return Result.Success(new NombreUsuario(value));
     }
-
-
-
 }

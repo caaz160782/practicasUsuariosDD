@@ -1,9 +1,10 @@
 namespace Usuarios.Domain.Usuarios;
 
-    public record Direccion (
-        string Calle,
-        string Ciudad,
-        string Estado,
-        string CodigoPostal,
-        string Pais
-    );
+public record Direccion
+(
+    string Pais,
+    string Departamento,
+    string Provincia,
+    string Distrito,
+    string Calle
+);

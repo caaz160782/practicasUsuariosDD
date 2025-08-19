@@ -27,5 +27,5 @@ public class Rol : Entity
 
         return Result.Success(new Rol(Guid.NewGuid(), nombre, descripcion));
     }
-        
+
 }

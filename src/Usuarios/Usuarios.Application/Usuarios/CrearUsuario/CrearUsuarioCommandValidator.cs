@@ -1,5 +1,3 @@
-
-
 using FluentValidation;
 
 namespace Usuarios.Application.Usuarios.CrearUsuario;

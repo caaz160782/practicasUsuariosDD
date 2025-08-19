@@ -13,12 +13,11 @@ public record Password
     
     public static Result<Password> Create(string value)
     {
-        if (string.IsNullOrWhiteSpace(value)|| value.Length < 6)
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 6)
         {
-            return Result.Failure<Password>(UsuarioErrores.PasswordInvalid);
+            return Result.Failure<Password>(UsuarioErrores.PasswordInvalido);
         }
 
-        return  Result.Success(new Password(value));
+        return Result.Success(new Password(value));
     }
-    
 }
