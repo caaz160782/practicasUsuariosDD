@@ -2,18 +2,18 @@ using Usuarios.Application.Abstractions.Messaging;
 
 namespace Usuarios.Application.Usuarios.CrearUsuario;
 
-public sealed record CrearUsuarioCommand(
+public sealed record CrearUsuarioCommand
+(
     string Nombre,
     string ApellidoPaterno,
     string ApellidoMaterno,
-    string NombreUsuario,
-    string Email,
     string Password,
+    string CorreoElectronico,
     DateTime FechaNacimiento,
-    string Calle,
-    string Ciudad,
-    string Estado,
-    string CodigoPostal,
     string Pais,
+    string Departamento,
+    string Ciudad,
+    string Distrito,
+    string Calle,
     string Rol
 ) : ICommand<Guid>;

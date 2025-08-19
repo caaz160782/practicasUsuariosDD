@@ -2,7 +2,6 @@ namespace Usuarios.Domain.Shared;
 
 public enum Estados
 {
-    Inactivo = 0,
-    Activo = 1
-}   
-       
+    Activo = 1,
+    Inactivo = 0
+}

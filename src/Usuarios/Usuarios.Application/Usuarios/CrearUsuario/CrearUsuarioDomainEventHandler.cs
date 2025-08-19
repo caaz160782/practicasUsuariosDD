@@ -25,7 +25,7 @@ public class CrearUsuarioDomainEventHandler : INotificationHandler<UserCreateDom
             return;
         }
 
-        await _emailService.SendEmailAsync(usuario.Email!.Value,
+        await _emailService.SendEmailAsync(usuario.CorreoElectronico!.Value,
         "Bienvenido al sistema",
         "Bienvenido al sistema");
     }

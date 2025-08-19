@@ -8,82 +8,82 @@ namespace Usuarios.Domain.Usuarios;
 public class Usuario : Entity
 {
     public readonly List<DobleFactorAutenticacion> autenticacions = new();
-    public string Nombre { get; private set; } = string.Empty;
-    public string ApellidoPaterno { get; private set; } = string.Empty;
-    public string ApellidoMaterno { get; private set; } = string.Empty;
-    public NombreUsuario NombreUsuario { get; private set; } = NombreUsuario.Create(string.Empty).Value;
-    public Email Email { get; private set; } = Email.Create(string.Empty).Value;
-    public Password Password { get; private set; } = Password.Create(string.Empty).Value;
-    public Direccion Direccion { get; private set; } = new Direccion(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-    public Estados Estado { get; private set; } = Estados.Activo;
-    public DateTime FechaUltimoCambio { get; private set; } = DateTime.Now;
+
+    public string? NombrePersona { get; private set; }
+    public string? ApellidoPaterno { get; private set; }
+    public string? ApellidoMaterno { get; private set; }
+    public Password? Password { get; private set; }
+    public NombreUsuario? NombreUsuario { get; private set; }
+    public DateTime FechaUltimoCambio { get; private set; }
     public DateTime FechaNacimiento { get; private set; }
+    public CorreoElectronico? CorreoElectronico { get; private set; }
+    public Direccion? Direccion { get; private set; }
+    public Estados Estado { get; private set; }
     public IReadOnlyList<DobleFactorAutenticacion> dobleFactorAutenticacions => autenticacions.AsReadOnly();
-    
     public Guid RolId { get; private set; }
     public Rol? Rol { get; private set; }
 
     private Usuario(
-         Guid id,
-         string nombre,
-         string apellidoPaterno,
-         string apellidoMaterno,
-         NombreUsuario nombreUsuario,
-         Email email,
-         Password password,
-         Direccion direccion,
-         Estados estado,
-         DateTime fechaUltimoCambio,
-         DateTime fechaNacimiento,
-         Guid rolId
-         ) : base(id)
+        Guid id,
+        string? nombrePersona,
+        string? apellidoPaterno,
+        string? apellidoMaterno,
+        Password? password,
+        NombreUsuario? nombreUsuario,
+        DateTime fechaUltimoCambio,
+        DateTime fechaNacimiento,
+        CorreoElectronico? correoElectronico,
+        Direccion? direccion,
+        Estados estado,
+        Guid rolId) : base(id)
     {
-        Nombre = nombre;
+        NombrePersona = nombrePersona;
         ApellidoPaterno = apellidoPaterno;
         ApellidoMaterno = apellidoMaterno;
-        NombreUsuario = nombreUsuario;
-        Email = email;
         Password = password;
-        Direccion = direccion;
-        Estado = estado;
+        NombreUsuario = nombreUsuario;
         FechaUltimoCambio = fechaUltimoCambio;
         FechaNacimiento = fechaNacimiento;
+        CorreoElectronico = correoElectronico;
+        Direccion = direccion;
+        Estado = estado;
         RolId = rolId;
     }
-  
+
     public static Result<Usuario> Create(
-        string? nombre,
+        string? nombrePersona,
         string? apellidoPaterno,
         string? apellidoMaterno,
         Password? password,
         DateTime fechaUltimoCambio,
         DateTime fechaNacimiento,
-        Email email,
-        Direccion direccion,
+        CorreoElectronico? correoElectronico,
+        Direccion? direccion,
         Guid rolId,
-        NombreUsuarioService nombreUsuarioService
-        )
+        NombreUsuarioService nombreUsuarioService)
     {
-        var nombreUsuario = nombreUsuarioService.GenerarNombreUsuario(nombre ?? string.Empty, apellidoPaterno ?? string.Empty);
-        if (nombreUsuario.IsSuccess)
+        var nombreUsuario = nombreUsuarioService.GenerarNombreUsuario(nombrePersona ?? string.Empty, apellidoPaterno ?? string.Empty);
+
+        if (!nombreUsuario.IsSuccess)
         {
             return Result.Failure<Usuario>(nombreUsuario.Error);
-        }   
+        }
+
         var usuario = new Usuario(
             Guid.NewGuid(),
-            nombre ?? string.Empty,
-            apellidoPaterno ?? string.Empty,
-            apellidoMaterno ?? string.Empty,
+            nombrePersona,
+            apellidoPaterno,
+            apellidoMaterno,
+            password,
             nombreUsuario.Value,
-            email,
-            password ?? Password.Create(string.Empty).Value,
-            direccion,
-            Estados.Activo,
             fechaUltimoCambio,
             fechaNacimiento,
-            rolId
-        );
-        usuario.AddDomaintEvent(new UserCreateDomainEvent(usuario.Id));
+            correoElectronico,
+            direccion,
+            Estados.Activo,
+            rolId);
+
+        usuario.AddDomainEvent(new UserCreateDomainEvent(usuario.Id));
 
         return Result.Success(usuario);
     }
@@ -91,6 +91,7 @@ public class Usuario : Entity
     public void InactivarUsuario()
     {
         if (Estado == Estados.Inactivo) return;
+
         Estado = Estados.Inactivo;
     }
 }

@@ -10,7 +10,7 @@ public abstract class Entity
         Id = id;
     }
 
-    public void AddDomaintEvent(IDomainEvent domainEvent)
+    public void AddDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
     }
@@ -24,5 +24,4 @@ public abstract class Entity
     {
         _domainEvents.Clear();
     }
-
 }

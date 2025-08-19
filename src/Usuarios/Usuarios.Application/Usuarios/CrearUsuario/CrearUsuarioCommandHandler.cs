@@ -28,9 +28,10 @@ internal sealed class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioC
         _dateTimeProvider = dateTimeProvider;
     }
 
-    public async  Task<Result<Guid>> Handle(CrearUsuarioCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CrearUsuarioCommand request, CancellationToken cancellationToken)
     {
         var rol = await _rolRepository.GetByNameAsync(request.Rol, cancellationToken);
+
         if (rol is null)
         {
             return Result.Failure<Guid>(RolErrores.RolNoEncontrado);
@@ -39,33 +40,31 @@ internal sealed class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioC
         var password = Password.Create(request.Password);
         if (password.IsFailure)
         {
-            return  Result.Failure<Guid>(password.Error);
+            return Result.Failure<Guid>(password.Error);
         }
 
-        var email =Email.Create(request.Email);
-        if (email.IsFailure)
+        var correoElectronico = CorreoElectronico.Create(request.CorreoElectronico);
+        if (correoElectronico.IsFailure)
         {
-            return Result.Failure<Guid>(email.Error);
+            return Result.Failure<Guid>(correoElectronico.Error);
         }
-
 
         var usuario = Usuario.Create(
             request.Nombre,
             request.ApellidoPaterno,
             request.ApellidoMaterno,
-            password.Value,              
-            _dateTimeProvider.CurrentTime,  
-            request.FechaNacimiento,                     
-            email.Value,            
+            password.Value,
+            _dateTimeProvider.CurrentTime,
+            request.FechaNacimiento,
+            correoElectronico.Value,
             new Direccion(
-                request.Calle,
+                request.Pais,
+                request.Departamento,
                 request.Ciudad,
-                request.Estado,
-                request.CodigoPostal,
-                request.Pais),            
+                request.Distrito,
+                request.Calle),
             rol.Id,
-            _nombreUsuarioService
-            );
+            _nombreUsuarioService);
 
         if (usuario.IsFailure)
         {
@@ -75,9 +74,7 @@ internal sealed class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioC
         _usuarioRepository.Add(usuario.Value);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return Result.Success(usuario.Value.Id);      
+        return Result.Success(usuario.Value.Id);
 
     }
-    
-
 }

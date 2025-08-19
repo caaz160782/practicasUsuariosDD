@@ -13,7 +13,7 @@ public static class DependecyInjection
             c.RegisterServicesFromAssembly(typeof(DependecyInjection).Assembly);
         });
 
-        services.AddTransient<NombreUsuarioService>();        
+        services.AddTransient<NombreUsuarioService>();
         services.AddValidatorsFromAssembly(typeof(DependecyInjection).Assembly);
         return services;
     }

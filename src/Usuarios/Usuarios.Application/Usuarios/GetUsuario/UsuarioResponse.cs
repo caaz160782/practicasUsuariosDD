@@ -2,18 +2,17 @@ namespace Usuarios.Application.Usuarios.GetUsuario;
 
 public record UsuarioResponse
 (
-    string Nombre,
+    string NombrePersona,
     string ApellidoPaterno,
-    string ApellidoMaterno,
-    string NombreUsuario,
-    string Email,    
+    string ApellidoMaterno ,
     DateTime FechaNacimiento,
-    string Calle,
-    string Ciudad,
-    string Estado,
-    string CodigoPostal,
+    string CorreoElectronico,
     string Pais,
+    string Departamento,
+    string Provincia,
+    string Distrito,
+    string Calle,
     string Rol,
-    DateTime fechaUltimoCambio,
-    string Estado1
+    DateTime FechaUltimoCambio,
+    string Estado
 );
