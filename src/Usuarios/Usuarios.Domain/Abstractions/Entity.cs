@@ -10,6 +10,10 @@ public abstract class Entity
         Id = id;
     }
 
+    protected Entity()
+    {
+        // EF Core
+    }
     public void AddDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);

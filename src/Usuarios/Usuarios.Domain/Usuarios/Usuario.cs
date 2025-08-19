@@ -23,6 +23,10 @@ public class Usuario : Entity
     public Guid RolId { get; private set; }
     public Rol? Rol { get; private set; }
 
+    private Usuario()
+    {
+        // EF Core
+    }
     private Usuario(
         Guid id,
         string? nombrePersona,
@@ -49,6 +53,8 @@ public class Usuario : Entity
         Estado = estado;
         RolId = rolId;
     }
+
+
 
     public static Result<Usuario> Create(
         string? nombrePersona,
