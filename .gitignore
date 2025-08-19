@@ -1,0 +1,24 @@
+# Visual Studio/VSCode
+.vs/
+
+*.user
+*.suo
+
+# Build outputs
+bin/
+obj/
+out/
+logs/
+*.log
+
+# Local/Secrets
+local.settings.json
+secrets.json
+
+# OS files
+*.DS_Store
+Thumbs.db
+
+# Otros temporales
+*.tmp
+*.bak
