@@ -23,6 +23,6 @@ Thumbs.db
 *.tmp
 *.bak
 
-*.bak       # Ignora archivos de respaldo
-appsettings.json # Ignora el archivo de configuración principal de la aplicación
+# Ignorar cualquier appsettings.json dentro de proyectos
+**/appsettings.json
 **/Migrations/*    # Ignora todas las carpetas de migraciones
