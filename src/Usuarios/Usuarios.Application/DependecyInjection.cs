@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Usuarios.Application.Abstractions.Behaviors;
 using Usuarios.Domain.Usuarios;
 
 namespace Usuarios.Application;
@@ -11,6 +12,8 @@ public static class DependecyInjection
         services.AddMediatR(c =>
         {
             c.RegisterServicesFromAssembly(typeof(DependecyInjection).Assembly);
+            c.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            c.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
         services.AddTransient<NombreUsuarioService>();

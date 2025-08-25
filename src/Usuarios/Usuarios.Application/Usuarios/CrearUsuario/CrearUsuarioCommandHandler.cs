@@ -55,7 +55,7 @@ internal sealed class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioC
             request.ApellidoMaterno,
             password.Value,
             _dateTimeProvider.CurrentTime,
-            request.FechaNacimiento,
+            request.FechaNacimiento.ToUniversalTime(),
             correoElectronico.Value,
             new Direccion(
                 request.Pais,
