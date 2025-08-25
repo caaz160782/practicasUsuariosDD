@@ -20,8 +20,7 @@ internal sealed class GetUsuarioQueryHandler : IQueryHandler<GetUsuarioQuery, Us
 
         var sql = """
               SELECT 
-                    u.id as Id,
-                    u.nombres_persona as NombrePersona,
+                    u.nombre_persona as NombrePersona,
                     u.nombre_usuario as NombreUsuario,
                     u.apellido_paterno as ApellidoPaterno,
                     u.apellido_materno as ApellidoMaterno,
@@ -32,7 +31,7 @@ internal sealed class GetUsuarioQueryHandler : IQueryHandler<GetUsuarioQuery, Us
                     u.direccion_provincia as Provincia,
                     u.direccion_distrito as Distrito,
                     u.direccion_calle as Calle,
-                    r.nombre_rol as Rol,
+                    r.nombre as Rol,
                     u.fecha_ultimo_cambio as FechaUltimoCambio,
                     u.estado as Estado
                 FROM usuarios u 

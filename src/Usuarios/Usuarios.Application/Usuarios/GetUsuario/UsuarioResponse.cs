@@ -3,6 +3,7 @@ namespace Usuarios.Application.Usuarios.GetUsuario;
 public record UsuarioResponse
 (
     string NombrePersona,
+    string NombreUsuario,
     string ApellidoPaterno,
     string ApellidoMaterno ,
     DateTime FechaNacimiento,

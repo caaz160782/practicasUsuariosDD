@@ -12,7 +12,7 @@ using Usuarios.Infrastructure;
 namespace Usuarios.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250819061435_InitialCreate")]
+    [Migration("20250824221019_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -107,8 +107,8 @@ namespace Usuarios.Infrastructure.Migrations
                         .HasColumnName("apellido_paterno");
 
                     b.Property<string>("CorreoElectronico")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
                         .HasColumnName("correo_electronico");
 
                     b.Property<string>("Estado")
@@ -131,13 +131,13 @@ namespace Usuarios.Infrastructure.Migrations
                         .HasColumnName("nombre_persona");
 
                     b.Property<string>("NombreUsuario")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("nombre_usuario");
 
                     b.Property<string>("Password")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("password");
 
                     b.Property<Guid>("RolId")
